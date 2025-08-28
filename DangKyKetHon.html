@@ -9,19 +9,19 @@
             --paper-bg:#fffefc;
             --accent:#c62828;
             --accent-dark:#0a681e;
-            --muted:#666;
+            --muted:#000000;
             --border:#e6e0df;
             --radius:10px;
             --max-width:900px;
         }
-        html,body{height:100%; margin:0;}
+        html,body{height:100%; margin:5;}
         body {
             font-family: "Times New Roman", Times, serif;
-            background:
-                radial-gradient(circle at center, rgba(232,107,143,.04), transparent 40%),
-                linear-gradient(180deg,#fbfaf9 0%, #fff 60%);
-            -webkit-font-smoothing:antialiased;
-            padding:30px;
+            background-image:
+            radial-gradient(circle at center, rgba(232,107,143,.06), transparent 45%),
+            repeating-conic-gradient(from 0deg, rgba(232,107,143,.08) 0 8deg, transparent 8deg 16deg);
+            -webkit-font-smoothing: antialiased;
+            padding:20px;
             color:#111;
         }
         .page {
@@ -39,7 +39,7 @@
         }
         .gov h2{margin:6px 0; font-size:20px; letter-spacing:1px;}
         .gov h3{margin:0; font-weight:normal; font-size:15px;}
-        .so-don{text-align:right; color:var(--muted); margin-bottom:6px;}
+        .so-don{text-align:right; color:var(--muted); margin-bottom:5px;}
         .title {
             text-align:center;
             color:var(--accent);
@@ -131,7 +131,7 @@
                 <u><h2>Độc lập – Tự do – Hạnh phúc</h2></u>
             </div>
 
-            <div class="so-don"><h3>Số: ...............</h3></div>
+            <div class="so-don"><h3>Số:...............</h3></div>
 
             <div class="title">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Emblem_of_Vietnam.svg/1200px-Emblem_of_Vietnam.svg.png" alt="Quốc huy Việt Nam">
@@ -140,6 +140,7 @@
 
             <div class="section">
                 <label for="to">Kính gửi</label>
+                
                 <input id="to" type="text" placeholder="Nhập UBND xã/phường" aria-label="Kính gửi">
             </div>
 
@@ -209,8 +210,8 @@
             </div>
 
             <div class="section">
-                <p style="margin:6px 0; font-weight:700;">Cam đoan</p>
-                <p class="helper">Chúng tôi cam đoan những điều khai trên đây là đúng sự thật, việc kết hôn của chúng tôi là tự nguyện, không vi phạm quy định của Luật Hôn nhân và Gia đình. Chúng tôi chịu hoàn toàn trách nhiệm trước pháp luật về cam đoan của mình.</p>
+                <!-- <p style="margin:6px 0; font-weight:700;">Cam đoan</p> -->
+                <p class="helper"><h4>Chúng tôi cam đoan những điều khai trên đây là đúng sự thật, việc kết hôn của chúng tôi là tự nguyện, không vi phạm quy định của Luật Hôn nhân và Gia đình. Chúng tôi chịu hoàn toàn trách nhiệm trước pháp luật về cam đoan của mình.</p>
             </div>
 
             <div class="signature">
@@ -234,7 +235,7 @@
                 </div>
             </div>
 
-            <div class="submit-row">
+            <div class="submit-row" style="font-family:'Times New Roman', Times, serif;">
                 <div style="height:80px;"></div>
                 <button type="submit" class="btn-submit" id="submitBtn">Gửi tờ khai</button>
             </div>
@@ -242,30 +243,110 @@
     </div>
 
     <script>
-        // an toàn: tìm phần tử trước khi addEventListener
-        const btn = document.getElementById('submitBtn');
-        const form = document.getElementById('regForm');
-        const page = document.getElementById('page');
+        (function () {
+            const page = document.getElementById('page');
+            const originalHTML = page.innerHTML;
 
-        if (btn) {
-            btn.addEventListener('mouseover', () => btn.textContent = 'Bạn chắc chưa?');
-            btn.addEventListener('mouseout',  () => btn.textContent = 'Gửi tờ khai');
-        }
+            function init() {
+                const btn = document.getElementById('submitBtn');
+                const form = document.getElementById('regForm');
+                if (btn) {
+                    btn.addEventListener('mouseover', () => btn.textContent = 'Bạn chắc chưa?');
+                    btn.addEventListener('mouseout', () => btn.textContent = 'Gửi tờ khai');
+                }
+                if (form) form.addEventListener('submit', onSubmit);
+            }
 
-        form.addEventListener('submit', showSuccessPage);
+            function collectForm(form) {
+                const fd = new FormData(form);
+                const data = {};
+                for (const [k, v] of fd.entries()) data[k] = v;
+                return data;
+            }
 
-        function showSuccessPage(e) {
-            e.preventDefault();
-            // thay nội dung bằng thông báo thành công đẹp
-            page.innerHTML = `
-                <div class="success" role="status" aria-live="polite">
-                    <h2>Chúc mừng!</h2>
-                    <p style="font-size:18px; margin:8px 0 18px;">Tờ khai của bạn đã được gửi thành công.</p>
-                    <p style="font-size:42px; margin:0;">🎉 ❤️</p>
-                </div>
-            `;
-            return false;
-        }
+            function esc(s) {
+                return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            function onSubmit(e) {
+                e.preventDefault();
+                const data = collectForm(e.target);
+                renderReview(data);
+            }
+
+            function renderReview(d) {
+                page.innerHTML = `
+                    <div class="page">
+                        <div class="title" style="margin-bottom:14px;">
+                            <h1 style="font-size:20px; color:var(--accent); text-transform:uppercase;">Xác nhận thông tin tờ khai</h1>
+                        </div>
+
+                        <table>
+                            <tbody>
+                                <tr><th style="width:35%;">Mục</th><th>Thông tin</th></tr>
+                                <tr><td>Kính gửi</td><td>${esc(d['to'])}</td></tr>
+                                <tr><td>Họ, chữ đệm, tên (Vợ)</td><td>${esc(d['nu_name'])}</td></tr>
+                                <tr><td>Họ, chữ đệm, tên (Chồng)</td><td>${esc(d['nam_name'])}</td></tr>
+                                <tr><td>Ngày sinh (Vợ)</td><td>${esc(d['nu_birth'])}</td></tr>
+                                <tr><td>Ngày sinh (Chồng)</td><td>${esc(d['nam_birth'])}</td></tr>
+                                <tr><td>Dân tộc (Vợ)</td><td>${esc(d['nu_dantoc'])}</td></tr>
+                                <tr><td>Dân tộc (Chồng)</td><td>${esc(d['nam_dantoc'])}</td></tr>
+                                <tr><td>Quốc tịch (Vợ)</td><td>${esc(d['nu_quoctich'])}</td></tr>
+                                <tr><td>Quốc tịch (Chồng)</td><td>${esc(d['nam_quoctich'])}</td></tr>
+                                <tr><td>Nơi cư trú (Vợ)</td><td>${esc(d['nu_address'])}</td></tr>
+                                <tr><td>Nơi cư trú (Chồng)</td><td>${esc(d['nam_address'])}</td></tr>
+                                <tr><td>Giấy tờ (Vợ)</td><td>${esc(d['nu_cccd'])}</td></tr>
+                                <tr><td>Giấy tờ (Chồng)</td><td>${esc(d['nam_cccd'])}</td></tr>
+                                <tr><td>Kết hôn lần thứ (Vợ)</td><td>${esc(d['nu_lan'])}</td></tr>
+                                <tr><td>Kết hôn lần thứ (Chồng)</td><td>${esc(d['nam_lan'])}</td></tr>
+                                <tr><td>Email (Vợ)</td><td>${esc(d['nu_email'])}</td></tr>
+                                <tr><td>Email (Chồng)</td><td>${esc(d['nam_email'])}</td></tr>
+                                <tr><td>Nơi đăng ký kết hôn</td><td>${esc(d['place'])}</td></tr>
+                            </tbody>
+                        </table>
+
+                        <div style="text-align:center; margin-top:18px;">
+                            <button id="confirmBtn" class="btn-submit">Xác nhận</button>
+                            <button id="editBtn" class="btn-submit" style="background:#666; margin-left:12px;">Quay lại chỉnh sửa</button>
+                        </div>
+                    </div>
+                `;
+
+                const confirmBtn = document.getElementById('confirmBtn');
+                const editBtn = document.getElementById('editBtn');
+
+                confirmBtn.addEventListener('click', () => showFinal());
+                editBtn.addEventListener('click', () => restoreForEdit(d));
+            }
+
+            function restoreForEdit(data) {
+                page.innerHTML = originalHTML;
+                // small delay to ensure DOM parsed
+                setTimeout(() => {
+                    // repopulate values
+                    const form = document.getElementById('regForm');
+                    if (!form) { init(); return; }
+                    Object.keys(data).forEach(name => {
+                        const el = form.querySelector(`[name="${CSS.escape(name)}"]`) || form.querySelector(`#${CSS.escape(name)}`);
+                        if (el) el.value = data[name];
+                    });
+                    init();
+                }, 0);
+            }
+
+            function showFinal() {
+                page.innerHTML = `
+                    <div class="success" role="status" aria-live="polite">
+                        <h2>Chúc mừng!</h2>
+                        <p style="font-size:18px; margin:8px 0 18px;">BẠN ĐÃ THOÁT Ế THÀNH CÔNG!.</p>
+                        <p style="font-size:42px; margin:0;">🎉 ❤️</p>
+                    </div>
+                `;
+            }
+
+            // khởi tạo lần đầu
+            init();
+        })();
     </script>
 </body>
 </html>
