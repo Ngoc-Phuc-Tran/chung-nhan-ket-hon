@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>GIẤY CHỨNG NHẬN KẾT HÔN</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        :root{
+            --paper-bg:#fffefc;
+            --accent:#c62828;
+            --accent-dark:#0a681e;
+            --muted:#666;
+            --border:#e6e0df;
+            --radius:10px;
+            --max-width:900px;
+        }
+        html,body{height:100%; margin:0;}
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background:
+                radial-gradient(circle at center, rgba(232,107,143,.04), transparent 40%),
+                linear-gradient(180deg,#fbfaf9 0%, #fff 60%);
+            -webkit-font-smoothing:antialiased;
+            padding:30px;
+            color:#111;
+        }
+        .page {
+            max-width:var(--max-width);
+            margin:0 auto;
+            background:var(--paper-bg);
+            padding:28px 36px;
+            border-radius:var(--radius);
+            box-shadow:0 8px 30px rgba(0,0,0,0.08);
+            border:1px solid var(--border);
+        }
+        .gov {
+            text-align:center;
+            margin-bottom:8px;
+        }
+        .gov h2{margin:6px 0; font-size:20px; letter-spacing:1px;}
+        .gov h3{margin:0; font-weight:normal; font-size:15px;}
+        .so-don{text-align:right; color:var(--muted); margin-bottom:6px;}
+        .title {
+            text-align:center;
+            color:var(--accent);
+            text-transform:uppercase;
+            margin:18px 0 22px;
+            display:block;
+        }
+        .title img{width:86px; display:block; margin:0 auto 8px;}
+        form{font-size:16px;}
+        .section {margin-bottom:14px;}
+        label{display:block; font-weight:bold; margin-bottom:6px;}
+        .inline-input {display:flex; gap:12px; flex-wrap:wrap;}
+        .inline-input > * {flex:1 1 220px;}
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea{
+            width:100%;
+            box-sizing:border-box;
+            padding:8px 10px;
+            border-radius:6px;
+            border:1px solid #bbb;
+            background:#fff;
+            font-size:15px;
+        }
+        table {
+            width:100%;
+            border-collapse:collapse;
+            margin-top:6px;
+            margin-bottom:6px;
+            font-size:15px;
+        }
+        thead th{
+            background:#fff6f6;
+            color:#000;
+            font-weight:700;
+            border:1px solid #cfcfcf;
+            padding:10px;
+            text-align:left;
+        }
+        td, th {
+            border:1px solid #ddd;
+            padding:10px;
+            vertical-align:middle;
+        }
+        .signature {
+            display:flex;
+            justify-content:space-between;
+            gap:20px;
+            margin-top:22px;
+        }
+        .signature div {flex:1; text-align:center;}
+        .sign-line {height:70px;}
+        .submit-row {text-align:center; margin-top:18px;}
+        .btn-submit {
+            background:var(--accent);
+            color:#fff;
+            padding:12px 34px;
+            border-radius:8px;
+            border:none;
+            font-size:18px;
+            cursor:pointer;
+            transition:all .18s ease;
+        }
+        .btn-submit:hover{background:var(--accent-dark); transform:translateY(-2px);}
+        .helper{color:var(--muted); font-size:13px; margin-top:6px;}
+        @media (max-width:640px){
+            .signature {flex-direction:column; align-items:flex-start;}
+            .signature div {text-align:left;}
+            .title{font-size:18px;}
+        }
+        /* success */
+        .success {
+            text-align:center;
+            padding:40px 20px;
+            font-family:"Times New Roman", Times, serif;
+            color: #0b6636;
+        }
+        .success h2{margin:6px 0 10px; font-size:28px;}
+    </style>
+</head>
+<body>
+    <div class="page" id="page">
+        <form id="regForm">
+            <div class="gov">
+                <h2>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h2>
+                <u><h2>Độc lập – Tự do – Hạnh phúc</h2></u>
+            </div>
+
+            <div class="so-don"><h3>Số: ...............</h3></div>
+
+            <div class="title">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Emblem_of_Vietnam.svg/1200px-Emblem_of_Vietnam.svg.png" alt="Quốc huy Việt Nam">
+                <h1>Giấy chứng nhận kết hôn</h1>
+            </div>
+
+            <div class="section">
+                <label for="to">Kính gửi</label>
+                <input id="to" type="text" placeholder="Nhập UBND xã/phường" aria-label="Kính gửi">
+            </div>
+
+            <div class="section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thông tin</th>
+                            <th>Vợ</th>
+                            <th>Chồng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Họ, chữ đệm, tên</td>
+                            <td><input type="text" name="nu_name" placeholder="Nhập tên vợ"></td>
+                            <td><input type="text" name="nam_name" placeholder="Nhập tên chồng"></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày, tháng, năm sinh</td>
+                            <td><input type="date" name="nu_birth"></td>
+                            <td><input type="date" name="nam_birth"></td>
+                        </tr>
+                        <tr>
+                            <td>Dân tộc</td>
+                            <td><input type="text" name="nu_dantoc" value="Kinh"></td>
+                            <td><input type="text" name="nam_dantoc" value="Kinh"></td>
+                        </tr>
+                        <tr>
+                            <td>Quốc tịch</td>
+                            <td><input type="text" name="nu_quoctich" value="Việt Nam"></td>
+                            <td><input type="text" name="nam_quoctich" value="Việt Nam"></td>
+                        </tr>
+                        <tr>
+                            <td>Nơi cư trú</td>
+                            <td><input type="text" name="nu_address" placeholder="Nhập địa chỉ bên vợ"></td>
+                            <td><input type="text" name="nam_address" placeholder="Nhập địa chỉ bên chồng"></td>
+                        </tr>
+                        <tr>
+                            <td>Giấy tờ tùy thân</td>
+                            <td><input type="text" name="nu_cccd" placeholder="Nhập CCCD/CMND bên vợ"></td>
+                            <td><input type="text" name="nam_cccd" placeholder="Nhập CCCD/CMND bên chồng"></td>
+                        </tr>
+                        <tr>
+                            <td>Kết hôn lần thứ</td>
+                            <td><input type="number" name="nu_lan" min="1" value="1"></td>
+                            <td><input type="number" name="nam_lan" min="1" value="1"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section inline-input">
+                <div>
+                    <label for="nu_email">Email vợ</label>
+                    <input id="nu_email" type="email" name="nu_email" placeholder="Nhập email bên nữ">
+                </div>
+                <div>
+                    <label for="nam_email">Email chồng</label>
+                    <input id="nam_email" type="email" name="nam_email" placeholder="Nhập email bên nam">
+                </div>
+            </div>
+
+            <div class="section">
+                <label for="place">Nơi đăng ký kết hôn</label>
+                <input id="place" type="text" placeholder="Nhập UBND xã/phường">
+            </div>
+
+            <div class="section">
+                <p style="margin:6px 0; font-weight:700;">Cam đoan</p>
+                <p class="helper">Chúng tôi cam đoan những điều khai trên đây là đúng sự thật, việc kết hôn của chúng tôi là tự nguyện, không vi phạm quy định của Luật Hôn nhân và Gia đình. Chúng tôi chịu hoàn toàn trách nhiệm trước pháp luật về cam đoan của mình.</p>
+            </div>
+
+            <div class="signature">
+                <div>
+                    <div class="sign-line"></div>
+                    <div><strong>VỢ</strong></div>
+                    <div class="helper">(Ký, ghi rõ họ, chữ đệm, tên)</div>
+                </div>
+                <div>
+                    <div class="sign-line"></div>
+                    <div><strong>CHỒNG</strong></div>
+                    <div class="helper">(Ký, ghi rõ họ, chữ đệm, tên)</div>
+                </div>
+            </div>
+
+            <div style="margin-top:40px;">
+                <div style="text-align:right;">
+                    <div style="height:50px;"></div>
+                    <div><strong>NGƯỜI KÝ GIẤY CHỨNG NHẬN KẾT HÔN</strong></div>
+                    <div class="helper">(Ký, ghi rõ họ, chữ đệm, tên, chức vụ và đóng dấu)</div>
+                </div>
+            </div>
+
+            <div class="submit-row">
+                <div style="height:80px;"></div>
+                <button type="submit" class="btn-submit" id="submitBtn">Gửi tờ khai</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // an toàn: tìm phần tử trước khi addEventListener
+        const btn = document.getElementById('submitBtn');
+        const form = document.getElementById('regForm');
+        const page = document.getElementById('page');
+
+        if (btn) {
+            btn.addEventListener('mouseover', () => btn.textContent = 'Bạn chắc chưa?');
+            btn.addEventListener('mouseout',  () => btn.textContent = 'Gửi tờ khai');
+        }
+
+        form.addEventListener('submit', showSuccessPage);
+
+        function showSuccessPage(e) {
+            e.preventDefault();
+            // thay nội dung bằng thông báo thành công đẹp
+            page.innerHTML = `
+                <div class="success" role="status" aria-live="polite">
+                    <h2>Chúc mừng!</h2>
+                    <p style="font-size:18px; margin:8px 0 18px;">Tờ khai của bạn đã được gửi thành công.</p>
+                    <p style="font-size:42px; margin:0;">🎉 ❤️</p>
+                </div>
+            `;
+            return false;
+        }
+    </script>
+</body>
+</html>
